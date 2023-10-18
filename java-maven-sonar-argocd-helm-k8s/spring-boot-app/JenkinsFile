@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'echo passed'
+        bat 'echo passed'
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
@@ -16,7 +16,7 @@ pipeline {
       steps {
         script{
           def workspacePath = pwd()
-          sh 'cd ${workspacePath}/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+          bat 'cd ${workspacePath}/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
         }
         
         // build the project and create a JAR file
