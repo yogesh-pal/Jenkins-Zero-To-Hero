@@ -15,7 +15,7 @@ pipeline {
     stage('Build and Test') {
       steps {
         script{
-          def workspacePath = pwd()
+          def workspacePath = 'C:/ProgramData/Jenkins/.jenkins/workspace/declarative/'
           bat 'cd ${workspacePath}/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
         }
         
