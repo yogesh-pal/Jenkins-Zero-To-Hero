@@ -8,19 +8,15 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        bat 'echo passed'
+        sh 'echo passed'
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
     stage('Build and Test') {
       steps {
-        script{
-          def workspacePath = 'C:/ProgramData/Jenkins/.jenkins/workspace/declarative/'
-          bat 'cd ${workspacePath}/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
-        }
-        
+        sh 'ls -ltr'
         // build the project and create a JAR file
-        
+        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
       }
     }
     stage('Static Code Analysis') {
@@ -35,7 +31,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "yjadhav06/ultimate-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "abhishekf5/ultimate-cicd:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
@@ -52,7 +48,7 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
-            GIT_USER_NAME = "yogesh-pal"
+            GIT_USER_NAME = "iam-veeramalla"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
